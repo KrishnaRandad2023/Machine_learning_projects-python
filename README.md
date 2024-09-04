@@ -63,4 +63,10 @@ This project is a web application that uses a machine learning model to predict 
 The model used in this application is a Decision Tree Classifier trained on a dataset of music genres. The model is saved in a file named `music-recommender.joblib`.
 
 ## File Structure
+/Music-genre-recommender-website
+│
+├── app.py
+├── music-recommender.joblib  # Your saved model file
+└── static
+    └── index.html  # Your frontend file
 
