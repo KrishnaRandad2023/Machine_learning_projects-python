@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock vs Mine Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rock vs Mine Predictor</h1>
+        
+        <form id="predictForm">
+            <label for="input_data">Enter 60 feature values:</label><br>
+            
+            <!-- Create 60 input fields dynamically -->
+            <div id="inputs">
+                <script>
+                    for (let i = 0; i < 60; i++) {
+                        document.write('<input type="number" step="any" name="input_data[]" placeholder="Feature ' + (i+1) + '" required><br>');
+                    }
+                </script>
+            </div>
+            
+            <button type="submit">Predict</button>
+        </form>
+
+        <div id="result">
+            <h2>Prediction:</h2>
+            <p id="predictionOutput"></p>
+        </div>
+
+        <script>
+            // Handle form submission with JavaScript
+            const form = document.getElementById('predictForm');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('predictionOutput').innerText = 'Error: ' + data.error;
+                    } else {
+                        document.getElementById('predictionOutput').innerText = 'Prediction: ' + data.prediction;
+                    }
+                })
+                .catch(error => console.log(error));
+            });
+        </script>
+    </div>
+</body>
+</html>
